@@ -1,0 +1,70 @@
+{
+  "version": 8,
+  "name": "Global Map vector tiles",
+  "glyphs": "https://smellman.github.io/creating_tiles_with_global_map_support_files/2015/mapbox_vector_tile_demo/demosites/fonts/{fontstack}/{range}.pbf",
+  "sources": {
+    "rdcl": {
+      "type": "vector",
+      "tiles": [
+        "https://hfu.github.io/rdcl-vt/{z}/{x}/{y}.mvt"
+      ],
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "GSI vector tile engineering experiment (rdcl)"
+    },
+    "land": {
+      "type": "vector",
+      "tiles": ["https://hfu.github.io/natural-earth-land-301/{z}/{x}/{y}.mvt"],
+      "minzoom": 0,
+      "maxzoom": 8,
+      "attribution": "Natural Earth (land)"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#5b92e5"
+      }
+    },
+    {
+      "id": "land",
+      "type": "fill",
+      "source": "land",
+      "source-layer": "land",
+      "paint": {
+        "fill-color": "#fff",
+        "fill-opacity": 1,
+        "fill-outline-color": "#fff"
+      }
+    },
+    {
+      "id": "rdcl",
+      "type": "line",
+      "source": "rdcl",
+      "source-layer": "default",
+      "minzoom": 0,
+      "maxzoom": 20,
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": {
+          "property": "rdCtg",
+          "type": "categorical",
+          "stops": [
+            ["国道", "#777777"],
+            ["都道府県道", "#777777"],
+            ["高速自動車国道等", "#ff1493"],
+            ["市区町村道等", "#aaaaaa"],
+            ["その他", "#aaaaaa"]
+          ]
+        },
+        "line-width": {"stops": [[0, 1], [7, 1], [8,2], [14, 4]]},
+        "line-opacity": 1
+      }
+    }
+  ]
+}
